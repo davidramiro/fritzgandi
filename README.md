@@ -4,30 +4,34 @@ Spring Boot microservice to allow FritzBox routers to update Gandi DNS entries w
 Uses the new LiveDNS API. Tested with Java 8, 11 and 17.
 
 ## Requirements
-- Gandi API Key from [Gandi Account settings](https://account.gandi.net/) under Security
+- A domain name on Gandi
+- Gandi API Key from [Account settings](https://account.gandi.net/) under Security
 - FritzBox router with up-to-date firmware
+- Java 8+ installed on the machine to run this application on
 
 ## Usage
 
-- Download the latest release jar
-
-OR
-- Clone the repo, issue `mvn package` and take the jar file from `target` directory
-
-  
+- Download the [latest](https://github.com/davidramiro/fritzgandi/releases/latest) release jar **OR** clone the repo, issue `mvn package` and take the jar file from `target` directory
 - Run the application with `java -jar fritzgandi-<VERSION>.jar`
 - Log into your FritzBox
-- Navigate to `Permit Access` -> `DynDNS`
+- Navigate to `Internet` -> `Permit Access` -> `DynDNS`
 - Enable DynDNS and use `User-defined` as Provider
-- Enter the following URL: `http://{HOST}:{PORT}/api/update?apikey=<passwd>&domain=<domain>&subdomain=<username>&ip=<ipaddr>`
+- Enter the following URL: `http://{HOST}:{PORT}/api/update?apikey=<passwd>&domain={DOMAIN}&subdomain={SUBDOMAIN}&ip=<ipaddr>`
   - Replace the `{HOST}` and `{PORT}` with your deployment of the application
-  - By default, the application uses port `9595`
-- Enter your base domain in the `Domain Name` field
-- Enter the subdomain to be updated in the `Username` field
+    - By default, the application uses port `9595`
+  - Replace `{DOMAIN}` with your base domain
+    - e.g. `yourdomain.com`
+  - Replace `{SUBDOMAIN}` with your subdomain
+    - e.g. `subdomain`
+- Enter the full domain in the `Domain Name` field
+  - e.g. `subdomain.domain.com`
+- Enter any value in the `Username` field
+  - Unused, but required by the FritzBox interface
 - Enter your Gandi API-Key in the `Password` field
 
-![](https://kore.cc/fritzgandi/settings.png "FritzBox DynDNS Settings")
+Your settings should look something like this:
 
+![](https://kore.cc/fritzgandi/fbsettings.png "FritzBox DynDNS Settings")
 
 Right after you save the settings, your FritzBox will make a request to the application. You should see the following
 success message in its log:
@@ -62,7 +66,7 @@ RestartSec=10
 WantedBy=multi-user.target
 ```
 
-Don't run this as root. Make sure your `User` has access rights to the `WorkingDirectory` where the jar file stays.
+Don't run this as root. Make sure your `User` has access rights to the `WorkingDirectory` where the jar file is in.
 
 Reload daemon, start the service, check its status:
 

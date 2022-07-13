@@ -23,6 +23,8 @@ Uses the new LiveDNS API. Tested with Java 8, 11 and 17.
     - e.g. `yourdomain.com`
   - Replace `{SUBDOMAIN}` with your subdomain
     - e.g. `subdomain`
+    - You can also add multiple subdomains here, comma separated: `subdomain1,subdomain2`
+    - Please note that only the FQDN entered in the next step will actually be checked by the router
 - Enter the full domain in the `Domain Name` field
   - e.g. `subdomain.domain.com`
 - Enter any value in the `Username` field

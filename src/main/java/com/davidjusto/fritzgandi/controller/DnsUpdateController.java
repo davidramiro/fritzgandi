@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,11 @@ public class DnsUpdateController {
     @Value("${gandi.api.url}")
     private String gandiBaseUrl;
     private RestTemplate restTemplate;
+
+    @GetMapping("/status")
+    public boolean status() {
+        return true;
+    }
 
     @RequestMapping(path = "/update")
     public ResponseEntity<String> update(@RequestParam String apikey, @RequestParam String domain, @RequestParam String subdomain,
